@@ -18,4 +18,41 @@ document.addEventListener("DOMContentLoaded", function() {
             })
             .catch(error => console.error('Error:', error));
     });
+
+     // Function to update the inventory display
+     function updateInventory() {
+        fetch('/inventory')
+            .then(response => response.json())
+            .then(data => {
+                const inventoryList = document.getElementById("inventory");
+                inventoryList.innerHTML = '';  // Clear current inventory list
+                data.inventory.forEach(item => {
+                    const li = document.createElement("li");
+                    li.textContent = item;
+                    inventoryList.appendChild(li);
+                });
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // Function to add an item to the inventory
+    function addToInventory(item) {
+        fetch(`/add-to-inventory/${item}`)
+            .then(response => response.json())
+            .then(data => {
+                if(data.success) {
+                    updateInventory();
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // Initial inventory update on page load
+    updateInventory();
+
+    // Example usage (You might want to trigger this differently)
+    // This is just for demonstration; you'll likely tie inventory updates to game events
+    // document.getElementById("someButtonId").addEventListener("click", function() {
+    //     addToInventory("Magic Wand");
+    // });
 });
