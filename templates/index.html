@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Adventure Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1>Welcome to the Adventure Game!</h1>
+    <p id="narrative">Your journey begins here. Choose wisely.</p>
+    <div id="choices"></div>
+    <script src="{{ url_for('static', filename='js/game.js') }}"></script>
+</body>
+</html>
