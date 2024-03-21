@@ -17,6 +17,17 @@ def add_to_inventory(item):
     session['inventory'].append(item)
     return jsonify(success=True, inventory=session['inventory'])
 
+@app.route('/remove-from-inventory/<item>', methods=['GET'])
+def remove_from_inventory(item):
+    if 'inventory' in session:
+        # Assuming your inventory can have duplicate items, this ensures only one instance is removed
+        try:
+            session['inventory'].remove(item)
+            return jsonify(success=True, inventory=session['inventory'])
+        except ValueError:
+            pass  # Item was not in the inventory
+    return jsonify(success=False, inventory=session['inventory'])
+
 @app.route('/inventory', methods=['GET'])
 def get_inventory():
     if 'inventory' not in session:
@@ -32,6 +43,8 @@ def start_game():
 def enter_forest():
     # Player has chosen to enter the forest, finds a sword
     return jsonify(message="As you venture deeper into the forest, you spot a gleaming sword stuck in a stone. Do you take it?", choices=["Take Sword", "Leave it"])
+
+
 
 
 if __name__ == '__main__':

@@ -54,6 +54,16 @@ document.addEventListener("DOMContentLoaded", function() {
                 data.inventory.forEach(item => {
                     const li = document.createElement("li");
                     li.textContent = item;
+
+                    // Create a drop button for each item
+                    const dropButton = document.createElement("button");
+                    dropButton.textContent = "Drop";
+                    dropButton.onclick = function() {
+                        removeFromInventory(item);
+                    };
+
+                    // Append the item and its drop button to the inventory list
+                    li.appendChild(dropButton);
                     inventoryList.appendChild(li);
                 });
             })
@@ -67,6 +77,20 @@ document.addEventListener("DOMContentLoaded", function() {
             .then(data => {
                 if(data.success) {
                     updateInventory(); // Refresh the inventory display
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // Function to remove an item from the inventory
+    function removeFromInventory(item) {
+        fetch(`/remove-from-inventory/${item}`)
+            .then(response => response.json())
+            .then(data => {
+                if(data.success) {
+                    updateInventory(); // Refresh the inventory display
+                } else {
+                    console.error('Failed to remove item from inventory');
                 }
             })
             .catch(error => console.error('Error:', error));
