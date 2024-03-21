@@ -28,5 +28,11 @@ def start_game():
     # Example game logic for the beginning of the game
     return jsonify(message="You stand before a dark forest. What do you do?", choices=["Enter", "Camp outside", "Go back"])
 
+@app.route('/enter-forest', methods=['GET'])
+def enter_forest():
+    # Player has chosen to enter the forest, finds a sword
+    return jsonify(message="As you venture deeper into the forest, you spot a gleaming sword stuck in a stone. Do you take it?", choices=["Take Sword", "Leave it"])
+
+
 if __name__ == '__main__':
     app.run(debug=True)

@@ -4,23 +4,48 @@ document.addEventListener("DOMContentLoaded", function() {
             .then(response => response.json())
             .then(data => {
                 document.getElementById("narrative").textContent = data.message;
-                // Hide the begin game button
-                document.getElementById("begin-game").style.display = 'none';
-                // Example: Display choices (further implementation required)
+                document.getElementById("begin-game").style.display = 'none'; // Hide the begin game button
                 const choicesDiv = document.getElementById("choices");
+                choicesDiv.innerHTML = ''; // Clear previous choices
+                
+                // Display choices and add event listeners
                 data.choices.forEach(choice => {
                     const button = document.createElement("button");
                     button.textContent = choice;
-                    // Add event listener for each choice
-                    // (You will need to implement choice handling)
+                    button.addEventListener('click', function() {
+                        if (choice === "Enter") {
+                            fetch('/enter-forest') // Fetch the "Enter Forest" scenario
+                                .then(response => response.json())
+                                .then(data => {
+                                    document.getElementById("narrative").textContent = data.message;
+                                    choicesDiv.innerHTML = ''; // Clear previous choices
+                                    data.choices.forEach(subChoice => {
+                                        const subChoiceButton = document.createElement("button");
+                                        subChoiceButton.textContent = subChoice;
+                                        subChoiceButton.addEventListener('click', function() {
+                                            if (subChoice === "Take Sword") {
+                                                addToInventory("Sword"); // Add sword to inventory
+                                            }
+                                            // Handle "Leave it" choice or other actions
+                                        });
+                                        choicesDiv.appendChild(subChoiceButton);
+                                    });
+                                });
+                        } else if (choice === "Camp outside") {
+                            // Handle camping outside
+                        } else if (choice === "Go back") {
+                            // Handle going back
+                        }
+                        // Add handling for other choices as needed
+                    });
                     choicesDiv.appendChild(button);
                 });
             })
             .catch(error => console.error('Error:', error));
     });
 
-     // Function to update the inventory display
-     function updateInventory() {
+    // Function to update the inventory display
+    function updateInventory() {
         fetch('/inventory')
             .then(response => response.json())
             .then(data => {
@@ -41,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function() {
             .then(response => response.json())
             .then(data => {
                 if(data.success) {
-                    updateInventory();
+                    updateInventory(); // Refresh the inventory display
                 }
             })
             .catch(error => console.error('Error:', error));
@@ -50,9 +75,6 @@ document.addEventListener("DOMContentLoaded", function() {
     // Initial inventory update on page load
     updateInventory();
 
-    // Example usage (You might want to trigger this differently)
-    // This is just for demonstration; you'll likely tie inventory updates to game events
-    // document.getElementById("someButtonId").addEventListener("click", function() {
-    //     addToInventory("Magic Wand");
-    // });
+    // Further game logic and item interaction can be added here
+    // This setup provides a flexible foundation for expanding your game
 });
