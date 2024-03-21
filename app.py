@@ -8,8 +8,8 @@ def index():
 
 @app.route('/start-game', methods=['GET'])
 def start_game():
-    # Example game logic and choices
-    return jsonify(message="You stand before a dark forest. Do you enter or camp?", choices=["Enter", "Camp"])
+    # Example game logic for the beginning of the game
+    return jsonify(message="You stand before a dark forest. What do you do?", choices=["Enter", "Camp outside", "Go back"])
 
 if __name__ == '__main__':
     app.run(debug=True)
