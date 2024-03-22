@@ -1,0 +1,25 @@
+{
+    "start_game": {
+      "message": "You stand before a dark forest. What do you do?",
+      "choices": [
+        {"text": "Enter", "next": "enter_forest"},
+        {"text": "Camp outside", "next": "camp_outside"},
+        {"text": "Go back", "next": "go_back_home"}
+      ]
+    },
+    "go_back_home": {
+        "message":"You turn and head back towards the safety of home. As you do, a voice calls out from the forest,'HELP!' ",
+        "choices": [
+            {"text": "Ignore it", "next": "quit_game"},
+            {"text": "Enter", "next": "enter_forest"}
+        ]
+    },
+    "enter_forest": {
+      "message": "As you venture deeper into the forest, you spot a gleaming sword stuck in a stone. Do you take it?",
+      "choices": [
+        {"text": "Take Sword", "action": "add_to_inventory", "item": "Sword"},
+        {"text": "Leave it", "next": "leave_sword_behind"}
+      ]
+    }
+  }
+  
