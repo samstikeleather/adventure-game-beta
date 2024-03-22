@@ -1,9 +1,27 @@
 document.addEventListener("DOMContentLoaded", function() {
+    // Listener for character creation
+    document.getElementById("create-character").addEventListener("click", function() {
+        const characterName = document.getElementById("character-name").value;
+        const characterAvatar = document.getElementById("character-avatar").value;
+
+        // Store character details
+        sessionStorage.setItem('characterName', characterName);
+        sessionStorage.setItem('characterAvatar', characterAvatar);
+
+        // Hide character creation and show the rest of the game UI
+        document.getElementById("character-creation").style.display = 'none';
+        document.getElementById("narrative").style.display = 'block';
+        document.getElementById("begin-game").style.display = 'block';
+        document.getElementById("inventory").style.display = 'block';
+    });
+
+    // Listener for beginning the game
     document.getElementById("begin-game").addEventListener("click", function() {
         fetch('/start-game')
             .then(response => response.json())
             .then(data => {
                 displayNarrativeAndChoices(data);
+                document.getElementById("choices").style.display = 'block'; // Show choices
             })
             .catch(error => console.error('Error:', error));
     });

@@ -7,15 +7,35 @@
 </head>
 <body>
     <h1>Welcome to the Adventure Game!</h1>
-    <p id="narrative">Your journey begins here. Choose wisely.</p>
+    
+    <!-- Character Creation Section -->
+    <div id="character-creation">
+        <h2>Create Your Character</h2>
+        <form id="character-creation-form">
+            <label for="character-name">Name:</label>
+            <input type="text" id="character-name" name="character-name" required><br>
+            
+            <label for="character-avatar">Choose an Avatar:</label>
+            <select id="character-avatar" name="character-avatar">
+                <option value="avatar1">Avatar 1</option>
+                <option value="avatar2">Avatar 2</option>
+                <!-- Add more avatar options here -->
+            </select><br>
+            
+            <button type="button" id="create-character">Create Character</button>
+        </form>
+    </div>
+    
+    <p id="narrative" style="display:none;">Your journey begins here. Choose wisely.</p>
     <!-- Begin Game Button -->
-    <button id="begin-game">Begin Game</button>
-    <div id="choices"></div>
+    <button id="begin-game" style="display:none;">Begin Game</button>
+    <div id="choices" style="display:none;"></div>
     <!-- Inventory Display -->
     <h2>Inventory</h2>
-    <ul id="inventory">
+    <ul id="inventory" style="display:none;">
     <!-- Inventory items will be listed here -->
     </ul>
+    
     <script src="{{ url_for('static', filename='js/game.js') }}"></script>
 </body>
 </html>
